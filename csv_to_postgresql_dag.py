@@ -1,8 +1,6 @@
 from airflow.decorators import dag, task
 from datetime import datetime, timedelta
 from airflow.providers.postgres.hooks.postgres import PostgresHook
-from sqlalchemy import create_engine
-from sqlalchemy.types import Float, Text 
 
 import pandas as pd
 
@@ -11,8 +9,8 @@ FILE_PATH = "/home/mulyo/Learning/ETL_CSV_To_PostrgeSQL/CO2 Emission Country.csv
 db_config = {
     'host':'localhost',
     'database':'csvpostgres',
-    'user':'postgres',
-    'password':'postgres'
+    'user':'*****',
+    'password':'*****'
 }
 
 table_name = 'co2_emission'
