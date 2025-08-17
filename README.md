@@ -15,10 +15,43 @@ To follow along this learning need have below requirements on system:
   # start the scheduler
   airflow scheduler
   ```
-- postgreql running
+- postgresql running
+  ```bash
+  sudo systemctl status postgresql
+  ```
 # *Project Flow*
-Automate ETL csv to PostgreSQL with Airflow:
 1. Import necessary airflow library; -- airflow.decorators, airflow.providers, sqlalchemy, pandas
-2. Initialization; -- file path, database config, create connection
-3. ETL flow; data extraction -> data transformation -> load data
-4. close connetion -- auto with context 
+   ```python3
+   from airflow.decorators import dag, task
+   from datetime import datetime, timedelta
+   from airflow.providers.postgres.hooks.postgres import PostgresHook
+
+   import pandas as pd
+   ```
+3. Initialization; -- file path, database config, create connection
+   ```python3
+   FILE_PATH = "/home/mulyo/Learning/ETL_CSV_To_PostrgeSQL/CO2 Emission Country.csv"
+
+   db_config = {
+    'host':'localhost',
+    'database':'csvpostgres',
+    'user':'*****',
+    'password':'*****'
+   }
+
+   POSTGRES_CONN_ID = 'postgres_conn'
+   hook = PostgresHook(postgres_conn_id)
+   ```
+5. ETL flow; data extraction -> data transformation -> load data
+   ```python3
+   extracted_df = dataExtraction(FILE_PATH)
+   transformed_df = dataTransformation(extracted_df)
+   loadData(transformed_df, table_name, POSTGRES_CONN_ID)
+   ```
+7. close connetion -- auto with context
+   ```python3
+   ...
+   hook = PostgresHook(postgres_conn_id)
+     with hook.get_conn() as conn:
+   ...
+   ``` 
