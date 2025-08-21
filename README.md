@@ -1,4 +1,5 @@
 # airflow_csv_to_postgres
+![A screenshot of a project interface](etl_csv_postgres.jpg)
 # *Overview*
 Project repo to demonstrate ETL orchestration using Apache Airflow, extracting data from source, transforming data (removing duplicates, remove missing value, correcting data type), load data into postgresql. All process is done automatically orchestrate by Airflow by scheduling. This repo demonstrate how utilize Airflow to conduct ETL in simple way.
 # *Prerequisites*
